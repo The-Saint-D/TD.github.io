@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Théodore Doussaint — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --text-muted: #7a8099;
+    --text-dim: #4a5068;
+    --accent: #4f9cf9;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent-dim: rgba(79,156,249,0.12);
+    --accent2-dim: rgba(167,139,250,0.12);
+    --accent3-dim: rgba(52,211,153,0.1);
+    --font-display: 'DM Serif Display', serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 max(2rem, calc(50vw - 560px));
+    position: relative;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(79,156,249,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(167,139,250,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(79,156,249,0.2);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-family: var(--font-body);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0c10;
+  }
+
+  .btn-primary:hover { background: #6aaeff; transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border2);
+  }
+
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+  .hero-meta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-meta-item {}
+  .hero-meta-item .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-mono); }
+  .hero-meta-item .value { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem max(2rem, calc(50vw - 560px));
+    position: relative;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .card-title {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+  .info-row .key { color: var(--text-dim); }
+  .info-row .val { color: var(--text-muted); text-align: right; }
+
+  .vision-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(79,156,249,0.05) 0%, rgba(167,139,250,0.05) 100%);
+    border-color: rgba(167,139,250,0.15);
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .skill-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+  }
+
+  .skill-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-icon.blue { background: var(--accent-dim); color: var(--accent); }
+  .skill-icon.purple { background: var(--accent2-dim); color: var(--accent2); }
+  .skill-icon.green { background: var(--accent3-dim); color: var(--accent3); }
+
+  .skill-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .skill-desc { font-size: 12px; color: var(--text-dim); }
+
+  /* ── BTS TABS ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    width: fit-content;
+    margin-bottom: 2rem;
+  }
+
+  .tab {
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-family: var(--font-body);
+    transition: all 0.2s;
+    border-right: 1px solid var(--border);
+  }
+
+  .tab:last-child { border-right: none; }
+  .tab.active { background: var(--surface2); color: var(--text); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .epreuve-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .epreuve-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .epreuve-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(79,156,249,0.2);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .epreuve-title { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+  .epreuve-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  .situation-list { list-style: none; margin-top: 1.5rem; }
+
+  .situation-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .situation-list li::before {
+    content: '→';
+    color: var(--accent);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── CERTIFS ── */
+  .certif-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .certif-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: all 0.2s;
+  }
+
+  .certif-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+  }
+
+  .certif-header { display: flex; align-items: center; gap: 12px; }
+
+  .certif-logo {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .certif-org { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; }
+  .certif-name { font-size: 15px; font-weight: 500; color: var(--text); }
+  .certif-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  .certif-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    width: fit-content;
+    margin-top: auto;
+  }
+
+  .certif-status.obtained { background: var(--accent3-dim); color: var(--accent3); }
+  .certif-status.ongoing { background: rgba(167,139,250,0.1); color: var(--accent2); }
+  .certif-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  /* ── VEILLE ── */
+  .veille-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .veille-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.2s;
+  }
+
+  .veille-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+  .veille-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .veille-card h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+  .veille-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+  .veille-sources {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-item:hover { border-color: var(--border2); transform: translateX(4px); }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-mono); }
+  .contact-value { font-size: 14px; color: var(--text-muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem max(2rem, calc(50vw - 560px));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 max(2rem, calc(50vw - 560px));
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .about-grid, .veille-grid, .contact-grid { grid-template-columns: 1fr; }
+    .vision-card { grid-column: 1; }
+    .nav-links { display: none; }
+    .hero-meta { flex-wrap: wrap; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">TD<span style="color:var(--text-dim);">_portfolio</span></span>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#bts">BTS SIO</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">BTS SIO · SISR · INSTA Paris</div>
+    <h1>Théodore<br><em>Doussaint</em></h1>
+    <p class="hero-desc">
+      Technicien informatique spécialisé en infrastructure, systèmes et réseaux.
+      Je construis mon expertise en alliant théorie et pratique pour devenir
+      un expert en solutions d'infrastructure.
+    </p>
+    <div class="hero-cta">
+      <a href="#bts" class="btn btn-primary">Voir mon parcours</a>
+      <a href="#contact" class="btn btn-ghost">Me contacter</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="label">Formation</div>
+        <div class="value">BTS SIO SISR — 1ère année</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Spécialisation</div>
+        <div class="value">Infrastructure &amp; Réseaux</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Intérêts</div>
+        <div class="value">Cybersécurité · Pentesting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">// profil</p>
+    <h2 class="section-title">À propos de moi</h2>
+    <p class="section-sub">Étudiant passionné par les technologies de l'infrastructure et la cybersécurité.</p>
+  </div>
+
+  <div class="about-grid reveal">
+    <div class="card">
+      <p class="card-title">Informations</p>
+      <div class="info-row"><span class="key">Né le</span><span class="val">5 août 2007</span></div>
+      <div class="info-row"><span class="key">Formation</span><span class="val">BTS SIO SISR · INSTA Paris 75005</span></div>
+      <div class="info-row"><span class="key">Diplôme</span><span class="val">Baccalauréat Général<br>Lycée Jean Pierre Vernant</span></div>
+    </div>
+
+    <div class="card">
+      <p class="card-title">Expertises</p>
+      <div class="info-row"><span class="key">🖥️ Administration</span><span class="val">Systèmes &amp; Réseaux</span></div>
+      <div class="info-row"><span class="key">🏗️ Infrastructure</span><span class="val">Gestion du patrimoine IT</span></div>
+      <div class="info-row"><span class="key">🔒 Cybersécurité</span><span class="val">Pentesting · Bug Bounty</span></div>
+      <div class="info-row"><span class="key">🤝 Support</span><span class="val">Assistance utilisateurs</span></div>
+    </div>
+
+    <div class="card vision-card" style="grid-column: 1 / -1;">
+      <p class="card-title">Vision</p>
+      <p>Passionné par les technologies, je construis mon expertise en alliant théorie et pratique pour devenir un expert en solutions d'infrastructure. Ce portfolio reflète mon parcours, mes projets et ma progression continue.</p>
+      <p style="margin-top: 0.75rem;">Mon approche combine rigueur technique et créativité dans la résolution de problèmes complexes. Je m'investis particulièrement dans la cybersécurité, le pentesting et les challenges de bug bounty.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section>
+  <div class="reveal">
+    <p class="section-label">// compétences techniques</p>
+    <h2 class="section-title">Stack &amp; outils</h2>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-card"><div class="skill-icon blue">🌐</div><div class="skill-name">Réseaux TCP/IP</div><div class="skill-desc">Routage, commutation, VLAN</div></div>
+    <div class="skill-card"><div class="skill-icon purple">🔒</div><div class="skill-name">Cybersécurité</div><div class="skill-desc">Analyse de trafic, Wireshark</div></div>
+    <div class="skill-card"><div class="skill-icon green">☁️</div><div class="skill-name">Microsoft Azure</div><div class="skill-desc">Cloud &amp; services Azure</div></div>
+    <div class="skill-card"><div class="skill-icon blue">🖥️</div><div class="skill-name">Administration sys.</div><div class="skill-desc">Windows Server, Linux</div></div>
+    <div class="skill-card"><div class="skill-icon purple">📡</div><div class="skill-name">Cisco Networking</div><div class="skill-desc">Introduction aux réseaux</div></div>
+    <div class="skill-card"><div class="skill-icon green">🛡️</div><div class="skill-name">Sécurité &amp; ANSSI</div><div class="skill-desc">Bonnes pratiques SecNumAcadémie</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BTS -->
+<section id="bts">
+  <div class="reveal">
+    <p class="section-label">// BTS SIO SISR</p>
+    <h2 class="section-title">Épreuves professionnelles</h2>
+    <p class="section-sub">Les deux épreuves professionnelles du BTS SIO option SISR, documentant mes situations de travail.</p>
+  </div>
+
+  <div class="reveal">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('e5')">Épreuve E5</button>
+      <button class="tab" onclick="switchTab('e6')">Épreuve E6</button>
+    </div>
+
+    <div id="tab-e5" class="tab-content active">
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Support et mise à disposition de services informatiques</div>
+            <div class="epreuve-desc">Conception, mise en place et maintenance des infrastructures réseau et systèmes. Support aux utilisateurs et gestion du patrimoine informatique.</div>
+          </div>
+          <span class="epreuve-badge">E5 · SISR</span>
+        </div>
+        <ul class="situation-list">
+          <li>Installation et configuration d'équipements réseau (switchs, routeurs)</li>
+          <li>Administration de serveurs Windows et Linux</li>
+          <li>Mise en place de services réseau (DNS, DHCP, Active Directory)</li>
+          <li>Virtualisation et gestion des machines virtuelles</li>
+          <li>Diagnostic et résolution d'incidents techniques</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="tab-e6" class="tab-content">
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Cybersécurité des services informatiques</div>
+            <div class="epreuve-desc">Sécurisation des infrastructures, analyse des risques et mise en œuvre de politiques de sécurité pour protéger le système d'information.</div>
+          </div>
+          <span class="epreuve-badge">E6 · SISR</span>
+        </div>
+        <ul class="situation-list">
+          <li>Analyse de trafic réseau et détection d'anomalies avec Wireshark</li>
+          <li>Sécurisation des accès et gestion des droits utilisateurs</li>
+          <li>Mise en place de pare-feux et politiques de filtrage</li>
+          <li>Audit de sécurité et identification des vulnérabilités</li>
+          <li>Application des recommandations ANSSI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal">
+    <p class="section-label">// certifications</p>
+    <h2 class="section-title">Certifications &amp; formations</h2>
+    <p class="section-sub">Les certifications obtenues et en cours, validant mes compétences techniques.</p>
+  </div>
+
+  <div class="certif-grid reveal">
+    <div class="certif-card">
+      <div class="certif-header">
+        <div class="certif-logo">☁️</div>
+        <div>
+          <div class="certif-org">Microsoft</div>
+          <div class="certif-name">Microsoft Azure</div>
+        </div>
+      </div>
+      <div class="certif-desc">Certification cloud Microsoft Azure couvrant les services d'infrastructure, de stockage et de virtualisation dans le cloud.</div>
+      <div class="certif-status obtained">Obtenue</div>
+    </div>
+
+    <div class="certif-card">
+      <div class="certif-header">
+        <div class="certif-logo">🛡️</div>
+        <div>
+          <div class="certif-org">ANSSI</div>
+          <div class="certif-name">MOOC SecNumAcadémie</div>
+        </div>
+      </div>
+      <div class="certif-desc">Formation officielle de l'Agence Nationale de la Sécurité des Systèmes d'Information sur les fondamentaux de la cybersécurité.</div>
+      <div class="certif-status obtained">Obtenue</div>
+    </div>
+
+    <div class="certif-card">
+      <div class="certif-header">
+        <div class="certif-logo">📡</div>
+        <div>
+          <div class="certif-org">Cisco</div>
+          <div class="certif-name">Introduction aux réseaux</div>
+        </div>
+      </div>
+      <div class="certif-desc">Certification Cisco Networking Academy couvrant les fondements des réseaux informatiques, protocoles et architecture TCP/IP.</div>
+      <div class="certif-status obtained">Obtenue</div>
+    </div>
+
+    <div class="certif-card">
+      <div class="certif-header">
+        <div class="certif-logo">🤖</div>
+        <div>
+          <div class="certif-org">Anthropic / Claude</div>
+          <div class="certif-name">Certification Claude AI</div>
+        </div>
+      </div>
+      <div class="certif-desc">Certification liée à l'utilisation et la compréhension des outils d'intelligence artificielle, notamment Claude d'Anthropic.</div>
+      <div class="certif-status obtained">Obtenue</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VEILLE TECHNOLOGIQUE -->
+<section id="veille">
+  <div class="reveal">
+    <p class="section-label">// veille technologique</p>
+    <h2 class="section-title">Veille &amp; actualités</h2>
+    <p class="section-sub">Les domaines que je surveille activement pour rester à jour dans mon domaine.</p>
+  </div>
+
+  <div class="veille-grid reveal">
+    <div class="veille-card">
+      <div class="veille-tag">Cybersécurité</div>
+      <h3>Menaces &amp; vulnérabilités</h3>
+      <p>Suivi des CVE critiques, nouvelles techniques d'attaque et exploits publiés. Analyse des rapports de sécurité des éditeurs majeurs.</p>
+      <div class="veille-sources">Sources : ANSSI · CVE · Bleeping Computer</div>
+    </div>
+
+    <div class="veille-card">
+      <div class="veille-tag">Cloud &amp; Infrastructure</div>
+      <h3>Évolutions cloud &amp; Azure</h3>
+      <p>Nouvelles fonctionnalités Azure, migrations cloud et tendances DevOps. Suivi des annonces Microsoft et de l'écosystème cloud.</p>
+      <div class="veille-sources">Sources : Microsoft Blog · Azure Updates</div>
+    </div>
+
+    <div class="veille-card">
+      <div class="veille-tag">Réseaux</div>
+      <h3>Protocoles &amp; standards</h3>
+      <p>Évolutions des protocoles réseau, nouvelles normes IEEE et Wi-Fi 7. Actualités Cisco et équipementiers réseau.</p>
+      <div class="veille-sources">Sources : Cisco Blog · IETF · NetworkWorld</div>
+    </div>
+
+    <div class="veille-card">
+      <div class="veille-tag">Intelligence Artificielle</div>
+      <h3>IA &amp; automatisation IT</h3>
+      <p>Applications de l'IA dans l'administration systèmes, la détection d'anomalies réseau et l'automatisation des tâches IT.</p>
+      <div class="veille-sources">Sources : Anthropic · OpenAI · The Verge</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="section-label">// contact</p>
+      <h2 class="section-title">Me contacter</h2>
+      <p class="section-sub">N'hésitez pas à me contacter pour toute opportunité de stage ou collaboration.</p>
+    </div>
+    <div class="contact-info reveal">
+      <a href="mailto:theodore.doussaint@gmail.com" class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">theodore.doussaint@gmail.com</div>
+        </div>
+      </a>
+      <a href="tel:+33769342902" class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Téléphone</div>
+          <div class="contact-value">07 69 34 29 02</div>
+        </div>
+      </a>
+      <a href="https://urlr.me/CPFfy5" target="_blank" class="contact-item">
+        <div class="contact-icon">🔗</div>
+        <div>
+          <div class="contact-label">Lien réduit</div>
+          <div class="contact-value">urlr.me/CPFfy5</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Théodore Doussaint</span>
+  <span>BTS SIO · SISR · INSTA Paris</span>
+</footer>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
