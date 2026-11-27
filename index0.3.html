@@ -1,1 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio BTS SIO SISR de Théodore Doussaint : situations professionnelles E5/E6, certifications et veille technologique.">
+<title>Théodore Doussaint — Portfolio BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --bg: #0a0c10; --surface: #111318; --surface2: #181c24;
+    --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0; --text-muted: #8a90a8; --text-dim: #5a6078;
+    --accent: #4f9cf9; --accent2: #a78bfa; --accent3: #34d399;
+    --accent-dim: rgba(79,156,249,0.12); --accent2-dim: rgba(167,139,250,0.12); --accent3-dim: rgba(52,211,153,0.1);
+    --font-display: 'DM Serif Display', serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --pad: max(1.5rem, calc(50vw - 560px));
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+  a { color: inherit; }
+  code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface2); padding: 1px 6px; border-radius: 4px; }
+
+  /* NAV */
+  nav { position: fixed; inset: 0 0 auto 0; z-index: 100; height: 60px; padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; background: rgba(10,12,16,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none; }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; overflow-x: auto; }
+  .nav-links a { font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 6rem var(--pad); }
+  .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 7rem; }
+  .hero::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(79,156,249,0.07), transparent 70%), radial-gradient(ellipse 40% 40% at 20% 70%, rgba(167,139,250,0.06), transparent 70%); }
+  .hero-content { position: relative; max-width: 680px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--accent-dim); border: 1px solid rgba(79,156,249,0.2); border-radius: 100px; font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 2rem; }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.8); } }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1.05; margin-bottom: 1.5rem; }
+  .hero h1 em { color: var(--accent2); }
+  .hero-desc { font-size: 1.1rem; color: var(--text-muted); max-width: 520px; margin-bottom: 2.5rem; line-height: 1.7; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: all .2s; }
+  .btn-primary { background: var(--accent); color: #0a0c10; }
+  .btn-primary:hover { background: #6aaeff; transform: translateY(-1px); }
+  .btn-ghost { color: var(--text-muted); border: 1px solid var(--border2); }
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+  .hero-meta { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; gap: 2rem; flex-wrap: wrap; }
+  .hero-meta .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; font-family: var(--font-mono); }
+  .hero-meta .value { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+
+  .divider { height: 1px; background: var(--border); margin: 0 var(--pad); }
+  .section-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.1; margin-bottom: 1rem; }
+  .section-sub { color: var(--text-muted); max-width: 580px; margin-bottom: 2.5rem; }
+
+  /* CARDS */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color .2s; }
+  .card:hover { border-color: var(--border2); }
+  .card-title { font-size: 11px; font-family: var(--font-mono); color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem; }
+  .card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .vision-card { grid-column: 1 / -1; background: linear-gradient(135deg, rgba(79,156,249,.05), rgba(167,139,250,.05)); border-color: rgba(167,139,250,.15); }
+  .info-row { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .key { color: var(--text-dim); }
+  .info-row .val { color: var(--text-muted); text-align: right; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; transition: all .2s; }
+  .skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .skill-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: .75rem; }
+  .skill-icon.blue { background: var(--accent-dim); } .skill-icon.purple { background: var(--accent2-dim); } .skill-icon.green { background: var(--accent3-dim); }
+  .skill-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .skill-desc { font-size: 12px; color: var(--text-dim); }
+
+  /* TABS */
+  .tabs { display: flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; width: fit-content; margin-bottom: 2rem; }
+  .tab { padding: 10px 24px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; background: transparent; border: none; border-right: 1px solid var(--border); font-family: var(--font-body); transition: all .2s; }
+  .tab:last-child { border-right: none; }
+  .tab.active { background: var(--surface2); color: var(--text); }
+  .tab:hover:not(.active) { color: var(--text); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* SITUATIONS */
+  .epreuve-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 1.25rem; }
+  .epreuve-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .epreuve-badge { padding: 4px 12px; background: var(--accent-dim); border: 1px solid rgba(79,156,249,.2); border-radius: 100px; font-family: var(--font-mono); font-size: 11px; color: var(--accent); white-space: nowrap; }
+  .epreuve-title { font-size: 1.1rem; font-weight: 500; margin-bottom: .5rem; }
+  .epreuve-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+  .tag { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); border: 1px solid var(--border2); border-radius: 100px; padding: 2px 10px; }
+  .btn-dl { display: inline-flex; align-items: center; gap: .4rem; margin-top: 1.25rem; padding: .45rem 1rem; font-size: 12px; font-family: var(--font-mono); color: var(--accent); border: 1px solid var(--accent); border-radius: 6px; text-decoration: none; transition: all .2s; }
+  .btn-dl:hover { background: var(--accent); color: #000; }
+
+  details.detail { margin-top: 1.25rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0 1.25rem; }
+  details.detail summary { cursor: pointer; padding: 1rem 0; font-family: var(--font-mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; }
+  details.detail[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .detail h4 { font-family: var(--font-mono); font-size: 12px; color: var(--text); text-transform: uppercase; letter-spacing: .06em; margin: 1.25rem 0 .5rem; }
+  .detail h4:first-of-type { margin-top: 0; }
+  .detail p, .detail li { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+  .detail ul { padding-left: 1.2rem; margin-bottom: .75rem; }
+  .detail > :last-child { margin-bottom: 1.25rem; }
+
+  /* CERTIFS */
+  .certif-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+  .certif-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: .75rem; transition: all .2s; }
+  .certif-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .certif-header { display: flex; align-items: center; gap: 12px; }
+  .certif-logo { width: 40px; height: 40px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .certif-org { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+  .certif-name { font-size: 15px; font-weight: 500; }
+  .certif-desc { font-size: 13px; color: var(--text-muted); }
+  .certif-status { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-family: var(--font-mono); width: fit-content; margin-top: auto; background: var(--accent3-dim); color: var(--accent3); }
+  .certif-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .credly-banner { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; background: linear-gradient(135deg, rgba(255,136,0,.08), rgba(255,136,0,.04)); border: 1px solid rgba(255,136,0,.2); border-radius: 12px; padding: 1.5rem 2rem; text-decoration: none; transition: all .2s; }
+  .credly-banner:hover { border-color: rgba(255,136,0,.4); transform: translateY(-2px); }
+  .credly-left { display: flex; align-items: center; gap: 1rem; }
+  .credly-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(255,136,0,.15); border: 1px solid rgba(255,136,0,.3); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .credly-label { font-size: 11px; font-family: var(--font-mono); color: rgba(255,136,0,.75); text-transform: uppercase; letter-spacing: .08em; }
+  .credly-title { font-size: 16px; font-weight: 500; }
+  .credly-sub { font-size: 13px; color: var(--text-muted); }
+  .credly-arrow { font-size: 18px; color: rgba(255,136,0,.7); transition: transform .2s; }
+  .credly-banner:hover .credly-arrow { transform: translateX(4px); }
+
+  /* VEILLE */
+  .veille-toggle { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; font-size: 15px; font-weight: 500; color: var(--text); cursor: pointer; transition: all .2s; font-family: var(--font-body); margin-bottom: 1.5rem; }
+  .veille-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .veille-toggle .icon { transition: transform .3s; }
+  .veille-toggle.open .icon { transform: rotate(90deg); }
+  .veille-wrapper { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .veille-wrapper.open { display: block; }
+  .veille-viewport { overflow: hidden; }
+  .veille-track { display: flex; transition: transform .45s cubic-bezier(.4,0,.2,1); }
+  .veille-slide { min-width: 100%; padding: 2.5rem 3rem; }
+  .slide-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+  .slide-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+  .veille-slide h3 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: .5rem; }
+  .slide-meta { font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .slide-body { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+  .slide-body h4 { font-size: 13px; font-weight: 600; color: var(--text); margin: 1.25rem 0 .5rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+  .slide-body h4:first-child { margin-top: 0; }
+  .slide-body ul { padding-left: 1.2rem; margin-bottom: .75rem; }
+  .slide-body li { margin-bottom: .35rem; }
+  .slide-body p { margin-bottom: .75rem; }
+  .slide-body a { color: var(--accent); }
+  .veille-nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-top: 1px solid var(--border); background: var(--surface2); }
+  .veille-arrows { display: flex; gap: .5rem; }
+  .veille-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted); cursor: pointer; font-size: 16px; transition: all .2s; }
+  .veille-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .veille-btn:disabled { opacity: .3; cursor: default; }
+  .veille-dots { display: flex; gap: 6px; align-items: center; }
+  .veille-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); cursor: pointer; border: none; transition: all .2s; }
+  .veille-dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
+  .veille-counter { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
+
+  /* CONTACT / FOOTER */
+  .contact-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .contact-item { display: flex; align-items: center; gap: 12px; padding: 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: all .2s; }
+  .contact-item:hover { border-color: var(--border2); transform: translateX(4px); }
+  .contact-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; }
+  .contact-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; font-family: var(--font-mono); }
+  .contact-value { font-size: 14px; color: var(--text-muted); }
+  footer { padding: 2rem var(--pad); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 1rem; }
+    .epreuve-header { flex-direction: column; }
+    .epreuve-card { padding: 1.25rem; }
+    .veille-slide { padding: 1.5rem; }
+    .credly-banner { flex-direction: column; align-items: flex-start; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="nav-logo">TD<span style="color:var(--text-dim)">_portfolio</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#bts">BTS SIO</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <div class="hero-tag">BTS SIO · SISR · INSTA Paris</div>
+    <h1>Théodore<br><em>Doussaint</em></h1>
+    <p class="hero-desc">Étudiant en BTS SIO option SISR, spécialisé en infrastructure, systèmes et réseaux. J'allie théorie et pratique pour construire, sécuriser et superviser des infrastructures d'entreprise.</p>
+    <div class="hero-cta">
+      <a href="#bts" class="btn btn-primary">Voir mes situations</a>
+      <a href="#contact" class="btn btn-ghost">Me contacter</a>
+    </div>
+    <div class="hero-meta">
+      <div><div class="label">Formation</div><div class="value">BTS SIO SISR — 2ème année</div></div>
+      <div><div class="label">Spécialisation</div><div class="value">Infrastructure &amp; Réseaux</div></div>
+      <div><div class="label">Intérêts</div><div class="value">Cybersécurité · Pentesting</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROFIL -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">// profil</p>
+    <h2 class="section-title">À propos de moi</h2>
+    <p class="section-sub">Étudiant passionné par les technologies d'infrastructure et la cybersécurité.</p>
+  </div>
+  <div class="about-grid reveal">
+    <div class="card">
+      <p class="card-title">Parcours</p>
+      <div class="info-row"><span class="key">Formation</span><span class="val">BTS SIO SISR · INSTA Paris 75005</span></div>
+      <div class="info-row"><span class="key">Diplôme</span><span class="val">Baccalauréat Général<br>Lycée Jean Pierre Vernant</span></div>
+    </div>
+    <div class="card">
+      <p class="card-title">Expertises</p>
+      <div class="info-row"><span class="key">🖥️ Administration</span><span class="val">Systèmes &amp; Réseaux</span></div>
+      <div class="info-row"><span class="key">🏗️ Infrastructure</span><span class="val">Gestion du patrimoine IT</span></div>
+      <div class="info-row"><span class="key">🔒 Cybersécurité</span><span class="val">Pentesting · Bug Bounty</span></div>
+      <div class="info-row"><span class="key">🤝 Support</span><span class="val">Assistance utilisateurs</span></div>
+    </div>
+    <div class="card vision-card">
+      <p class="card-title">Vision</p>
+      <p>Je construis mon expertise en alliant théorie et pratique pour devenir un expert en solutions d'infrastructure. Ce portfolio reflète mon parcours, mes projets et ma progression continue.</p>
+      <p style="margin-top:.75rem">Mon approche combine rigueur technique et créativité dans la résolution de problèmes. Je m'investis particulièrement dans la cybersécurité, le pentesting et les challenges de bug bounty.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPÉTENCES -->
+<section>
+  <div class="reveal">
+    <p class="section-label">// compétences techniques</p>
+    <h2 class="section-title">Stack &amp; outils</h2>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-card"><div class="skill-icon blue">🌐</div><div class="skill-name">Réseaux TCP/IP</div><div class="skill-desc">Routage, commutation, VLAN</div></div>
+    <div class="skill-card"><div class="skill-icon purple">🔒</div><div class="skill-name">Sécurité réseau</div><div class="skill-desc">Pare-feu, Port Security, Wireshark</div></div>
+    <div class="skill-card"><div class="skill-icon green">🧱</div><div class="skill-name">Virtualisation</div><div class="skill-desc">Proxmox VE, VMware</div></div>
+    <div class="skill-card"><div class="skill-icon blue">🖥️</div><div class="skill-name">Administration système</div><div class="skill-desc">Windows Server 2022, Debian</div></div>
+    <div class="skill-card"><div class="skill-icon purple">📡</div><div class="skill-name">Cisco</div><div class="skill-desc">Switch L3, SVI, CLI</div></div>
+    <div class="skill-card"><div class="skill-icon green">🗂️</div><div class="skill-name">Services &amp; ITSM</div><div class="skill-desc">Active Directory, RDS, Samba, GLPI</div></div>
+    <div class="skill-card"><div class="skill-icon blue">☁️</div><div class="skill-name">Microsoft Azure</div><div class="skill-desc">Cloud &amp; services Azure</div></div>
+    <div class="skill-card"><div class="skill-icon purple">🛡️</div><div class="skill-name">Sécurité &amp; ANSSI</div><div class="skill-desc">Bonnes pratiques SecNumAcadémie</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BTS SIO -->
+<section id="bts">
+  <div class="reveal">
+    <p class="section-label">// BTS SIO SISR</p>
+    <h2 class="section-title">Situations professionnelles</h2>
+    <p class="section-sub">Mes situations documentées pour les épreuves E5 et E6. Ouvrez « Voir le détail » pour le contexte, les réalisations, la recette et les compétences validées.</p>
+  </div>
+
+  <div class="reveal">
+    <div class="tabs" role="tablist">
+      <button class="tab active" role="tab" aria-selected="true" onclick="switchTab('e5', this)">Épreuve E5</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab('e6', this)">Épreuve E6</button>
+    </div>
+
+    <!-- E5 -->
+    <div id="tab-e5" class="tab-content active">
+
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Situation n°1 — Switch de niveau 3 et borne Wi-Fi dans un réseau local d'entreprise</div>
+            <div class="epreuve-desc">Permettre aux ordinateurs connectés au switch L3 d'accéder au Wi-Fi via une borne et à Internet.</div>
+          </div>
+          <span class="epreuve-badge">E5 · SISR</span>
+        </div>
+        <div class="tags"><span class="tag">Switch L3</span><span class="tag">Borne Wi-Fi</span><span class="tag">PuTTY</span><span class="tag">Câblage Ethernet</span></div>
+        <details class="detail">
+          <summary>Voir le détail</summary>
+          <h4>Description</h4>
+          <p>Permettre aux ordinateurs connectés au switch L3 d'accéder au Wi-Fi via une borne.</p>
+          <h4>Technologies utilisées</h4>
+          <ul>
+            <li>Switch de niveau 3</li><li>2 ordinateurs</li><li>Une borne Wi-Fi</li>
+            <li>Câbles Ethernet</li><li>Logiciel PuTTY</li>
+          </ul>
+          <h4>Solution apportée</h4>
+          <ul><li>Connexion des postes à Internet via le switch L3 et la borne Wi-Fi.</li></ul>
+          <h4>Documentation associée</h4>
+          <ul><li>Documentation technique</li><li>Rapports d'activité</li><li>Tableaux de bord</li></ul>
+        </details>
+        <a href="docs/E5_mission_1.pdf" target="_blank" rel="noopener" class="btn-dl">📄 Télécharger le rapport PDF</a>
+      </div>
+
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Situation n°2 — Routage inter-VLAN sur un switch de niveau 3</div>
+            <div class="epreuve-desc">Interconnexion de postes clients situés dans des sous-réseaux différents grâce au routage d'un switch L3.</div>
+          </div>
+          <span class="epreuve-badge">E5 · SISR</span>
+        </div>
+        <div class="tags"><span class="tag">Cisco Catalyst</span><span class="tag">VLAN 10 / 20</span><span class="tag">SVI</span><span class="tag">IPv4</span></div>
+        <details class="detail">
+          <summary>Voir le détail</summary>
+          <h4>Description</h4>
+          <p>Permettre la communication et l'échange de données entre deux ordinateurs situés dans des sous-réseaux (VLAN) différents, en utilisant les capacités de routage d'un switch L3.</p>
+          <h4>Technologies utilisées</h4>
+          <ul>
+            <li>Switch de niveau 3 (Cisco Catalyst)</li><li>2 ordinateurs</li>
+            <li>Câbles Ethernet et câble console</li><li>PuTTY (configuration en ligne de commande)</li>
+            <li>Protocole de routage IPv4</li>
+          </ul>
+          <h4>Solutions</h4>
+          <ul>
+            <li><strong>Création et segmentation :</strong> deux VLAN distincts (VLAN 10 et VLAN 20) pour isoler les flux réseau.</li>
+            <li><strong>Routage inter-VLAN :</strong> interfaces virtuelles (SVI) servant de passerelles par défaut pour chaque sous-réseau.</li>
+            <li><strong>Adressage IP :</strong> adresses IP statiques cohérentes sur les postes clients pour valider la connectivité.</li>
+            <li><strong>Résultat :</strong> communication réussie entre des réseaux logiquement séparés (test de ping validé).</li>
+          </ul>
+        </details>
+        <a href="docs/E5_mission_2.pdf" target="_blank" rel="noopener" class="btn-dl">📄 Télécharger le rapport PDF</a>
+      </div>
+
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Situation n°3 — Infrastructure virtualisée : OPNsense, pfSense, Proxmox, Samba, FTP, GLPI, Windows Server 2022, RDS, WSL2, Active Directory</div>
+            <div class="epreuve-desc">Projet collaboratif : maquette d'une infrastructure d'entreprise complète sous Proxmox VE.</div>
+          </div>
+          <span class="epreuve-badge">E5 · SISR</span>
+        </div>
+        <div class="tags"><span class="tag">Proxmox VE</span><span class="tag">OPNsense</span><span class="tag">pfSense</span><span class="tag">Samba</span><span class="tag">vsftpd</span><span class="tag">GLPI 11</span><span class="tag">ADDS</span><span class="tag">RDS</span><span class="tag">WSL2</span></div>
+        <details class="detail">
+          <summary>Voir le détail</summary>
+          <h4>1. Contexte et objectifs</h4>
+          <p>Concevoir, maquetter et déployer une infrastructure réseau et système entièrement virtualisée sous Proxmox VE, afin de simuler un environnement d'entreprise réaliste : double cœur de routage/sécurité (firewalls), partages de fichiers centralisés, outil de gestion de parc (ITSM), serveurs et clients Windows dans un domaine.</p>
+          <h4>2. Réalisations techniques</h4>
+          <ul>
+            <li><strong>Virtualisation &amp; réseau :</strong> remise en état et amorçage d'un switch physique Cisco (ROMMON / boot IOS) ; configuration de Proxmox et de ponts Linux Bridge pour segmenter WAN, LAN et DMZ.</li>
+            <li><strong>Routage, sécurité &amp; filtrage :</strong> déploiement conjoint d'OPNsense et de pfSense ; routage inter-zones, NAT et ouverture granulaire des flux (accès RDP sécurisés).</li>
+            <li><strong>Services système &amp; gestion de parc (Linux) :</strong> serveur Samba sous Debian avec permissions par groupes ; serveur de transfert sécurisé vsftpd ; Helpdesk et inventaire GLPI 11.</li>
+            <li><strong>Windows Server 2022 &amp; bureau à distance :</strong> contrôleur de domaine (ADDS) avec zone DNS locale ; Services Bureau à Distance (RDS) avec collection de sessions et portail RDWeb ; intégration de WSL2 (Ubuntu) pour exécuter des outils Linux natifs.</li>
+          </ul>
+          <h4>3. Validation et recette</h4>
+          <ul>
+            <li>Routage et étanchéité WAN/LAN validés à travers les règles de pare-feu.</li>
+            <li>Authentification centralisée des utilisateurs du domaine Windows.</li>
+            <li>Accès distant fonctionnel et performant via RDWeb et RDP depuis un client Windows 10.</li>
+          </ul>
+          <h4>4. Compétences du référentiel SIO SISR</h4>
+          <ul>
+            <li>Installer, configurer et administrer un hyperviseur de virtualisation (Proxmox).</li>
+            <li>Déployer et sécuriser des passerelles de filtrage et de routage (firewalls open source).</li>
+            <li>Configurer des services applicatifs et de stockage en environnement hétérogène (Linux &amp; Windows).</li>
+            <li>Administrer un annuaire centralisé (Active Directory) et des services de virtualisation d'applications (RDS).</li>
+          </ul>
+        </details>
+        <a href="docs/E5_mission_3.pdf" target="_blank" rel="noopener" class="btn-dl">📄 Télécharger le rapport PDF</a>
+      </div>
+
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Situation n°4 — Segmentation réseau, routage inter-VLAN et point d'accès sans fil</div>
+            <div class="epreuve-desc">Architecture locale sécurisée pour un pôle administratif : cloisonnement par VLAN, Port Security et Wi-Fi invités isolé.</div>
+          </div>
+          <span class="epreuve-badge">E5 · SISR</span>
+        </div>
+        <div class="tags"><span class="tag">VLAN</span><span class="tag">SVI</span><span class="tag">Port Security</span><span class="tag">Wi-Fi invités (VLAN 30)</span></div>
+        <details class="detail">
+          <summary>Voir le détail</summary>
+          <h4>1. Contexte et objectifs</h4>
+          <p>Dans le cadre de l'optimisation de l'infrastructure réseau d'une organisation, concevoir et déployer une architecture locale sécurisée pour le pôle administratif : cloisonner les flux pour isoler les services internes (comptabilité, administration) des utilisateurs de passage, avec une interconnectivité maîtrisée et un accès sécurisé à Internet.</p>
+          <h4>2. Réalisations techniques</h4>
+          <ul>
+            <li><strong>Segmentation (VLAN) :</strong> VLAN Administration, Comptabilité et Invités pour séparer hermétiquement les domaines de diffusion.</li>
+            <li><strong>Routage inter-VLAN :</strong> interfaces SVI (<em>Switch Virtual Interfaces</em>) sur un switch Cisco Catalyst de niveau 3, pour des performances de transfert optimales via le fond de panier.</li>
+            <li><strong>Port Security :</strong> limitation des adresses MAC, mise en mode <em>err-disable</em> et blocage immédiat du port en cas d'intrusion d'un équipement non référencé.</li>
+            <li><strong>Wi-Fi :</strong> borne d'accès avec un SSID dédié aux invités (VLAN 30), étanche vis-à-vis de l'environnement interne.</li>
+          </ul>
+          <h4>3. Validation et recette</h4>
+          <ul>
+            <li>Les flux internes légitimes sont routés correctement.</li>
+            <li>Le Wi-Fi invités est fonctionnel et isolé (aucune route vers les VLAN d'administration).</li>
+            <li>Port Security : les terminaux tiers sont interceptés et bloqués.</li>
+          </ul>
+          <h4>4. Compétences du référentiel SIO SISR</h4>
+          <ul>
+            <li>Gérer des flux réseau et segmenter une infrastructure locale.</li>
+            <li>Configurer les switchs de niveau 3 et implémenter le routage virtuel (SVI).</li>
+            <li>Sécuriser les infrastructures d'accès (sécurité des ports, isolation Wi-Fi).</li>
+            <li>Réaliser des tests de recette et diagnostiquer les dysfonctionnements réseau.</li>
+          </ul>
+        </details>
+        <a href="docs/E5_mission_4.pdf" target="_blank" rel="noopener" class="btn-dl">📄 Télécharger le rapport PDF</a>
+      </div>
+    </div>
+
+    <!-- E6 -->
+    <div id="tab-e6" class="tab-content">
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Situation n°1 — Analyse de trafic et détection d'anomalies DNS avec Wireshark</div>
+            <div class="epreuve-desc">Capture et analyse du trafic réseau d'une VM Windows avec Wireshark, identification d'une requête DNS suspecte et répétitive vers un domaine externe, investigation avec filtres et commandes PowerShell.</div>
+          </div>
+          <span class="epreuve-badge">E6 · SISR</span>
+        </div>
+        <div class="tags"><span class="tag">Wireshark</span><span class="tag">DNS</span><span class="tag">PowerShell</span></div>
+        <a href="docs/E6_mission_1.pdf" target="_blank" rel="noopener" class="btn-dl">📄 Télécharger le rapport PDF</a>
+      </div>
+      <div class="epreuve-card">
+        <div class="epreuve-header">
+          <div>
+            <div class="epreuve-title">Situation n°2 — Sécurisation d'un réseau VLAN et filtrage par pare-feu pfSense</div>
+            <div class="epreuve-desc">Règles de filtrage sur pfSense pour segmenter et contrôler les flux entre VLAN, restriction des accès par politique de pare-feu et audit des logs pour détecter les tentatives non autorisées.</div>
+          </div>
+          <span class="epreuve-badge">E6 · SISR</span>
+        </div>
+        <div class="tags"><span class="tag">pfSense</span><span class="tag">VLAN</span><span class="tag">Filtrage</span><span class="tag">Logs</span></div>
+        <a href="docs/E6_mission_2.pdf" target="_blank" rel="noopener" class="btn-dl">📄 Télécharger le rapport PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal">
+    <p class="section-label">// certifications</p>
+    <h2 class="section-title">Certifications</h2>
+    <p class="section-sub">Les certifications obtenues, validant mes compétences techniques.</p>
+  </div>
+  <div class="certif-grid reveal">
+    <div class="certif-card">
+      <div class="certif-header"><div class="certif-logo">☁️</div><div><div class="certif-org">Microsoft</div><div class="certif-name">Microsoft Azure</div></div></div>
+      <div class="certif-desc">Services d'infrastructure, de stockage et de virtualisation dans le cloud Azure.</div>
+      <div class="certif-status">Obtenue</div>
+    </div>
+    <div class="certif-card">
+      <div class="certif-header"><div class="certif-logo">🛡️</div><div><div class="certif-org">ANSSI</div><div class="certif-name">MOOC SecNumAcadémie</div></div></div>
+      <div class="certif-desc">Formation officielle de l'Agence nationale de la sécurité des systèmes d'information sur les fondamentaux de la cybersécurité.</div>
+      <div class="certif-status">Obtenue</div>
+    </div>
+    <div class="certif-card">
+      <div class="certif-header"><div class="certif-logo">📡</div><div><div class="certif-org">Cisco</div><div class="certif-name">Introduction aux réseaux</div></div></div>
+      <div class="certif-desc">Cisco Networking Academy : fondements des réseaux, protocoles et architecture TCP/IP.</div>
+      <div class="certif-status">Obtenue</div>
+    </div>
+    <div class="certif-card">
+      <div class="certif-header"><div class="certif-logo">🤖</div><div><div class="certif-org">Anthropic</div><div class="certif-name">Certification Claude AI</div></div></div>
+      <div class="certif-desc">Utilisation et compréhension des outils d'intelligence artificielle, notamment Claude.</div>
+      <div class="certif-status">Obtenue</div>
+    </div>
+    <a href="https://www.credly.com/users/theodore-doussaint" target="_blank" rel="noopener" class="credly-banner">
+      <div class="credly-left">
+        <div class="credly-icon">🏆</div>
+        <div>
+          <div class="credly-label">Profil vérifié</div>
+          <div class="credly-title">Mes badges Credly</div>
+          <div class="credly-sub">Toutes mes certifications vérifiées sur Credly</div>
+        </div>
+      </div>
+      <div class="credly-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VEILLE -->
+<section id="veille">
+  <div class="reveal">
+    <p class="section-label">// veille technologique</p>
+    <h2 class="section-title">Veille technologique</h2>
+    <p class="section-sub">Cas d'étude : l'évolution du botnet Emotet et les moyens de s'en protéger. Dernière mise à jour : novembre 2026.</p>
+  </div>
+
+  <div class="reveal">
+    <button class="veille-toggle" id="veille-toggle" aria-expanded="false" onclick="toggleVeille()">
+      <span class="icon">▶</span> Lire la veille — Évolution du botnet Emotet
+    </button>
+
+    <div class="veille-wrapper" id="veille-wrapper">
+      <div class="veille-viewport">
+        <div class="veille-track" id="veille-track">
+
+          <!-- 1 -->
+          <div class="veille-slide">
+            <div class="slide-label">Cybersécurité · Cas d'étude</div>
+            <h3>Évolution du botnet Emotet</h3>
+            <div class="slide-meta">Groupe Théodore Logistique · Pôle Cybersécurité</div>
+            <div class="slide-body">
+              <h4>Problématique</h4>
+              <p>Le SOC de l'entreprise a détecté une tentative de phishing. Des fichiers <code>.VHD</code> et <code>.ISO</code> suspects circulent dans des campagnes de spam visant les filiales d'Europe de l'Est. Comment un botnet comme Emotet a-t-il évolué, et comment protéger l'entreprise ?</p>
+              <h4>Contexte</h4>
+              <p>Emotet apparaît en 2014 comme cheval de Troie bancaire, opéré par le groupe TA542 (aussi appelé Mealybug). Il devient ensuite un botnet qui sert de « loader » : il infecte des machines puis donne accès à d'autres groupes criminels, qui y déploient d'autres malwares (TrickBot, QakBot) ou des ransomwares.</p>
+              <p>Les formats <code>.ISO</code> et <code>.VHD</code> sont utilisés par plusieurs familles de loaders pour contourner le blocage des macros Office : ils ne sont pas propres à Emotet.</p>
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="veille-slide">
+            <div class="slide-label">Chronologie</div>
+            <h3>Évolution d'Emotet</h3>
+            <div class="slide-meta">Des mutations successives pour résister aux défenses</div>
+            <div class="slide-body">
+              <h4>2014 — Apparition</h4>
+              <p>Cheval de Troie bancaire, diffusé par phishing pour voler des identifiants de connexion.</p>
+              <h4>2016-2017 — Passage au modèle « loader »</h4>
+              <p>Architecture modulaire : Emotet ne se contente plus de voler des données, il loue l'accès aux machines infectées à d'autres groupes.</p>
+              <h4>Janvier 2021 — Démantèlement</h4>
+              <p>Opération coordonnée par Europol et des autorités judiciaires de plusieurs pays (opération « Ladybird ») : prise de contrôle de l'infrastructure de commande et de contrôle (C2).</p>
+              <h4>Novembre 2021 — Retour</h4>
+              <p>Moins d'un an après le démantèlement, Emotet réapparaît, distribué via le botnet TrickBot, avec une version reconstruite.</p>
+              <h4>2022-2023 — Adaptation</h4>
+              <p>Face au blocage par défaut des macros Office venant d'Internet par Microsoft, les opérateurs s'éloignent des documents Office piégés et testent d'autres vecteurs, avec des techniques d'évasion (ajout de données inutiles aux binaires, ingénierie sociale).</p>
+              <h4>Depuis — Activité par vagues</h4>
+              <p>Des périodes d'inactivité alternent avec des campagnes de spam massives.</p>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="veille-slide">
+            <div class="slide-label">Analyse technique</div>
+            <h3>Fonctionnement d'Emotet</h3>
+            <div class="slide-meta">Architecture et vecteurs d'infection</div>
+            <div class="slide-body">
+              <h4>Architecture</h4>
+              <ul>
+                <li><strong>Botnet :</strong> un réseau de machines infectées contrôlé par des serveurs de commande et de contrôle (C2).</li>
+                <li><strong>Modularité :</strong> des modules ajoutés selon l'objectif (vol d'identifiants, envoi de spam, propagation, téléchargement d'autres malwares).</li>
+                <li><strong>Évasion :</strong> code fréquemment modifié et obfusqué pour échapper aux détections par signature.</li>
+              </ul>
+              <h4>Infection et propagation</h4>
+              <ul>
+                <li>Diffusion par e-mails de phishing contenant une pièce jointe ou un lien malveillant.</li>
+                <li>Réutilisation de vrais fils de discussion volés pour rendre les e-mails crédibles.</li>
+                <li>Vol des identifiants enregistrés dans les navigateurs et les clients de messagerie, et des contacts.</li>
+                <li>Propagation latérale dans le réseau via le partage SMB.</li>
+              </ul>
+              <h4>Rôle dans la chaîne d'attaque</h4>
+              <p>Emotet sert d'accès initial : une fois la machine compromise, l'accès est revendu à d'autres groupes, ce qui en fait un précurseur fréquent de ransomwares.</p>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="veille-slide">
+            <div class="slide-label">Défense &amp; protection</div>
+            <h3>Moyens de protection</h3>
+            <div class="slide-meta">Recommandations pour l'entreprise</div>
+            <div class="slide-body">
+              <h4>Mesures techniques</h4>
+              <ul>
+                <li><strong>Messagerie :</strong> passerelle anti-spam avec analyse en bac à sable des pièces jointes ; SPF, DKIM et DMARC.</li>
+                <li><strong>Postes de travail :</strong> bloquer les macros Office issues d'Internet (GPO), empêcher le montage automatique des fichiers <code>.ISO</code>/<code>.VHD</code>, déployer un EDR.</li>
+                <li><strong>Authentification :</strong> MFA partout, et interdiction d'enregistrer les mots de passe dans les navigateurs.</li>
+                <li><strong>Réseau :</strong> segmentation, restriction des flux SMB entre postes, surveillance du trafic interne anormal.</li>
+                <li><strong>Résilience :</strong> sauvegardes hors ligne testées (règle 3-2-1).</li>
+              </ul>
+              <h4>Mesures humaines</h4>
+              <ul>
+                <li>Sensibiliser les collaborateurs : un e-mail cohérent, sans fautes et dans un fil de discussion existant n'est pas une garantie de légitimité.</li>
+                <li>Vérifier l'expéditeur par un autre canal (téléphone, messagerie interne) avant d'ouvrir une pièce jointe inattendue.</li>
+                <li>Point de vigilance : l'IA générative améliore la qualité des e-mails de phishing en général, ce qui rend les anciens réflexes (« repérer les fautes ») insuffisants.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="veille-slide">
+            <div class="slide-label">Bilan</div>
+            <h3>État de la menace &amp; conclusion</h3>
+            <div class="slide-meta">Points clés et sources</div>
+            <div class="slide-body">
+              <h4>Points clés à retenir</h4>
+              <ul>
+                <li><strong>Résilience :</strong> malgré le démantèlement de 2021, Emotet est revenu en quelques mois : un takedown ne suffit pas à éliminer durablement un botnet.</li>
+                <li><strong>Adaptation :</strong> les opérateurs changent de vecteurs d'infection dès qu'une défense se généralise (exemple : blocage des macros).</li>
+                <li><strong>Impact :</strong> en tant que loader, Emotet ouvre la porte aux ransomwares et menace la continuité d'activité.</li>
+                <li><strong>Défense en profondeur :</strong> filtrage des e-mails, durcissement des postes, MFA, segmentation, sauvegardes et sensibilisation doivent être combinés.</li>
+              </ul>
+              <h4>Sources</h4>
+              <ul>
+                <li><a href="https://www.darkreading.com/endpoint-security/intl-law-enforcement-operation-disrupts-emotet-botnet" target="_blank" rel="noopener">Dark Reading — Intl. Law Enforcement Operation Disrupts Emotet Botnet</a></li>
+                <li><a href="https://www.itpro.com/security/cyber-security/370253/new-emotet-socially-engineers-evade-detection" target="_blank" rel="noopener">ITPro — Brand-new Emotet campaign socially engineers its way from detection</a></li>
+                <li><a href="https://www.cynet.com/security-foundations/attack-techniques/new-wave-of-emotet-when-project-x-turns-into-y/" target="_blank" rel="noopener">Cynet — New Wave of Emotet</a></li>
+                <li>CERT-FR et CISA : alertes et bulletins sur Emotet (ajouter ici les liens précis consultés)</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="veille-nav">
+        <div class="veille-arrows">
+          <button class="veille-btn" id="veille-prev" aria-label="Précédent" onclick="veilleNav(-1)">←</button>
+          <button class="veille-btn" id="veille-next" aria-label="Suivant" onclick="veilleNav(1)">→</button>
+        </div>
+        <div class="veille-dots" id="veille-dots"></div>
+        <div class="veille-counter" id="veille-counter"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="section-label">// contact</p>
+      <h2 class="section-title">Me contacter</h2>
+      <p class="section-sub" style="margin-bottom:0">N'hésitez pas à me contacter pour toute opportunité de stage ou de collaboration.</p>
+    </div>
+    <div class="reveal">
+      <a href="mailto:theodore.doussaint@gmail.com" class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div><div class="contact-label">Email</div><div class="contact-value">theodore.doussaint@gmail.com</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Théodore Doussaint</span>
+  <span>BTS SIO · SISR · INSTA Paris</span>
+</footer>
+
+<script>
+/* Onglets E5 / E6 */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+}
+
+/* Slider de veille */
+const slides = document.querySelectorAll('.veille-slide');
+const TOTAL = slides.length;
+let current = 0;
+
+function buildDots() {
+  const box = document.getElementById('veille-dots');
+  box.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('button');
+    d.className = 'veille-dot';
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.onclick = () => goTo(i);
+    box.appendChild(d);
+  }
+}
+
+function goTo(i) {
+  current = i;
+  document.getElementById('veille-track').style.transform = 'translateX(-' + (i * 100) + '%)';
+  document.querySelectorAll('.veille-dot').forEach((d, k) => d.classList.toggle('active', k === i));
+  document.getElementById('veille-prev').disabled = i === 0;
+  document.getElementById('veille-next').disabled = i === TOTAL - 1;
+  document.getElementById('veille-counter').textContent = (i + 1) + ' / ' + TOTAL;
+}
+
+function veilleNav(dir) {
+  const n = current + dir;
+  if (n >= 0 && n < TOTAL) goTo(n);
+}
+
+function toggleVeille() {
+  const wrap = document.getElementById('veille-wrapper');
+  const btn = document.getElementById('veille-toggle');
+  const open = !wrap.classList.contains('open');
+  wrap.classList.toggle('open', open);
+  btn.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+  if (open) { buildDots(); goTo(0); }
+}
+
+/* Swipe mobile + flèches clavier */
+(function () {
+  const track = document.getElementById('veille-track');
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) veilleNav(diff > 0 ? 1 : -1);
+  }, { passive: true });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('veille-wrapper').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') veilleNav(1);
+    if (e.key === 'ArrowLeft') veilleNav(-1);
+  });
+})();
+
+/* Apparition au scroll */
+const io = new IntersectionObserver(entries => {
+  entries.forEach((en, i) => {
+    if (en.isIntersecting) { setTimeout(() => en.target.classList.add('visible'), i * 80); io.unobserve(en.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
